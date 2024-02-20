@@ -1,0 +1,96 @@
+# ASP.NET Core
+
+# .NET Core
+bin/
+obj/
+*.dll
+*.pdb
+*.exe
+*.json
+*.xml
+*.log
+
+# Visual Studio Code
+.vscode/
+
+# NuGet Packages
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+# except build/, which is used as an MSBuild target.
+!**/packages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/packages/repositories.config
+
+# MSTest test Results
+TestResults
+
+# .NET Core
+*.Cache
+*.tmp
+*.obj
+*.suo
+*.user
+*.htm
+*.html
+*.css
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.tiff
+*.bmp
+*.ico
+*.svg
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.gz
+*.tgz
+*.bzip
+*.gzip
+*.dmp
+*.dat
+*.log
+*.iso
+*.bak
+*.obj
+*.sql
+*.pdb
+*.swp
+*.tmp
+*.csproj.user
+*.cache
+*~
+*.vspscc
+*.vssscc
+*.opendb
+*.ldb
+*.mdb
+*.pch
+*.scc
+*.tmp
+*.bak
+*.res
+*.aps
+*.user
+*.ncb
+*.tlb
+*.tlh
+*.bak
+*.log
+*.vspscc
+*.vssscc
+._*
+.builds
+.bundle
+node_modules/
+
+# Angular
+dist/
+node_modules/
+*.log
