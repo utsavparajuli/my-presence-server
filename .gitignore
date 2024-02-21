@@ -10,6 +10,7 @@ obj/
 *.xml
 *.log
 
+appsettings.json
 # Visual Studio Code
 .vscode/
 

@@ -4,22 +4,19 @@ namespace MyPresence.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class ApplicationController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        private static readonly List<Application> applications = new List<Application>();
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<ApplicationController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public ApplicationController(ILogger<ApplicationController> logger)
         {
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet(Name = "GetApplications")]
+        public IEnumerable<Application> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

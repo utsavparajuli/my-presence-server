@@ -1,6 +1,6 @@
 @MyPresence.Server_HostAddress = http://localhost:5014
 
-GET {{MyPresence.Server_HostAddress}}/weatherforecast/
+GET {{MyPresence.Server_HostAddress}}/applications/
 Accept: application/json
 
 ###
