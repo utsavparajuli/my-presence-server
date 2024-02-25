@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace MyPresence.Server.Models
 {
@@ -9,7 +10,7 @@ namespace MyPresence.Server.Models
         {
         }
 
-        public DbSet<Application> Applications { get; set; }
+        public DbSet<Application> applications { get; set; }
         // Other DbSet properties for additional entities if needed
     }
 }

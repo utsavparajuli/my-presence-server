@@ -14,24 +14,28 @@ namespace MyPresence.Server.Controllers
     public class ApplicationController : ControllerBase
     {
         private readonly MyDbContext _context;
+        private readonly ApplicationService _applicationService;
 
-        public ApplicationController(MyDbContext context)
+
+        public ApplicationController(ApplicationService applicationService)
         {
-            _context = context;
+            _applicationService = applicationService;
         }
 
         // GET: api/Apps
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Application>>> GetApplications()
+        public async Task<ActionResult<IEnumerable<Application>>> GetApplications(int uid)
         {
-            return await _context.Applications.ToListAsync();
+            var applications = await Task.Run(() => _applicationService.GetApplications(uid));
+            return Ok(applications);
+            //return await _context.Applications.ToListAsync();
         }
 
         // GET: api/Apps/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Application>> GetApplication(int id)
+        public async Task<ActionResult<Application>> GetApplicationById(int id)
         {
-            var application = await _context.Applications.FindAsync(id);
+            var application = await _context.applications.FindAsync(id);
 
             if (application == null)
             {
@@ -46,7 +50,7 @@ namespace MyPresence.Server.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutApplication(int id, Application application)
         {
-            if (id != application.ApplicationId)
+            if (id != application.id)
             {
                 return BadRequest();
             }
@@ -77,11 +81,11 @@ namespace MyPresence.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Application>> PostApplication(Application application)
         {
-            _context.Applications.Add(application);
+            _context.applications.Add(application);
             await _context.SaveChangesAsync();
 
             //return CreatedAtAction("GetApplication", new { id = application.ApplicationId }, application);
-            return CreatedAtAction(nameof(GetApplication), new { id = application.ApplicationId }, application);
+            return CreatedAtAction(nameof(GetApplicationById), new { id = application.id }, application);
 
         }
 
@@ -89,13 +93,13 @@ namespace MyPresence.Server.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteApplication(int id)
         {
-            var application = await _context.Applications.FindAsync(id);
+            var application = await _context.applications.FindAsync(id);
             if (application == null)
             {
                 return NotFound();
             }
 
-            _context.Applications.Remove(application);
+            _context.applications.Remove(application);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -103,7 +107,7 @@ namespace MyPresence.Server.Controllers
 
         private bool ApplicationExists(int id)
         {
-            return _context.Applications.Any(e => e.ApplicationId == id);
+            return _context.applications.Any(e => e.id == id);
         }
     }
 }

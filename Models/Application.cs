@@ -1,13 +1,15 @@
-﻿namespace MyPresence.Server.Models
+﻿using System;
+
+namespace MyPresence.Server.Models
 {
     public class Application
     {
-        public int ApplicationId { get; set; }
-        public int UserId { get; set; }
-        public string CompanyName { get; set; }
-        public string Status { get; set; }
-        public DateTime Date { get; set; }
-        public string Url { get; set; }
+        public int id { get; set; }
+        public int user_id { get; set; }
+        public string company_name { get; set; }
+        public string status { get; set; }
+        public DateTime date { get; set; }
+        public string url { get; set; }
 
 
         // Parameterless constructor
@@ -18,22 +20,22 @@
         // Constructor
         public Application(int applicationId, int userId, string companyName, string status, DateTime date, string url)
         {
-            ApplicationId = applicationId;
-            UserId = userId;
-            CompanyName = companyName;
-            Status = status;
-            Date = date;
-            Url = url;
+            id = applicationId;
+            user_id = userId;
+            company_name = companyName;
+            this.status = status;
+            this.date = date;
+            this.url = url;
         }
 
         // Constructor
         public Application(int userId, string companyName, string status, DateTime date, string url)
         {
-            UserId = userId;
-            CompanyName = companyName;
-            Status = status;
-            Date = date;
-            Url = url;
+            user_id = userId;
+            company_name = companyName;
+            this.status = status;
+            this.date = date;
+            this.url = url;
         }
     }
 }

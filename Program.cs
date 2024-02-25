@@ -1,9 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using MyPresence.Server;
 using MyPresence.Server.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<MyDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers();
 // Add CORS services
@@ -17,8 +20,11 @@ builder.Services.AddCors(options =>
     });
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddDbContext<MyDbContext>(opt =>
-    opt.UseInMemoryDatabase("ApplicationList"));
+//builder.Services.AddDbContext<MyDbContext>(opt =>
+//    opt.UseInMemoryDatabase("ApplicationList"));
+
+builder.Services.AddScoped<ApplicationService>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
