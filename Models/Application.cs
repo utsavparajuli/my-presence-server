@@ -1,4 +1,4 @@
-﻿namespace MyPresence.Server
+﻿namespace MyPresence.Server.Models
 {
     public class Application
     {
@@ -8,6 +8,12 @@
         public string Status { get; set; }
         public DateTime Date { get; set; }
         public string Url { get; set; }
+
+
+        // Parameterless constructor
+        public Application()
+        {
+        }
 
         // Constructor
         public Application(int applicationId, int userId, string companyName, string status, DateTime date, string url)
