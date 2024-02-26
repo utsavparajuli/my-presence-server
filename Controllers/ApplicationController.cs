@@ -9,7 +9,7 @@ using MyPresence.Server.Models;
 
 namespace MyPresence.Server.Controllers
 {
-    [Route("api/Application")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ApplicationController : ControllerBase
     {
@@ -26,6 +26,7 @@ namespace MyPresence.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Application>>> GetApplications(int uid)
         {
+            Console.WriteLine("Request sent from client");
             var applications = await Task.Run(() => _applicationService.GetApplications(uid));
             return Ok(applications);
             //return await _context.Applications.ToListAsync();

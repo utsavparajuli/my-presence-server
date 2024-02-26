@@ -28,8 +28,9 @@ namespace MyPresence.Server
             //};
 
             //return dummyApplications;
-
+            Console.WriteLine("Inside the getapps");
             var applications = _context.applications.FromSqlRaw("SELECT * FROM applications WHERE user_id = {0}", userId).ToList();
+            Console.WriteLine(applications);
             return applications;
 
         }
