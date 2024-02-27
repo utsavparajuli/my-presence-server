@@ -11,6 +11,7 @@ namespace MyPresence.Server.Models
         }
 
         public DbSet<Application> applications { get; set; }
+
         // Other DbSet properties for additional entities if needed
     }
 }

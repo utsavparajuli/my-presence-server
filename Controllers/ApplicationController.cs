@@ -36,7 +36,7 @@ namespace MyPresence.Server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Application>> GetApplicationById(int id)
         {
-            var application = await _context.applications.FindAsync(id);
+            var application = await Task.Run(() => _applicationService.GetApplicationById(id));
 
             if (application == null)
             {
@@ -82,8 +82,9 @@ namespace MyPresence.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Application>> PostApplication(Application application)
         {
-            _context.applications.Add(application);
-            await _context.SaveChangesAsync();
+            application.date = application.date.ToUniversalTime();
+
+            _applicationService.AddApplication(application);
 
             //return CreatedAtAction("GetApplication", new { id = application.ApplicationId }, application);
             return CreatedAtAction(nameof(GetApplicationById), new { id = application.id }, application);
