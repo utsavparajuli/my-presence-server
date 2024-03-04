@@ -64,6 +64,11 @@ namespace MyPresence.Server
             }
         }
 
+        public bool ApplicationExists(int id)
+        {
+            return _context.applications.Any(e => e.id == id);
+        }
+
         // Implement other methods as needed
     }
 

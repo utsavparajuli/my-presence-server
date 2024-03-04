@@ -56,22 +56,22 @@ namespace MyPresence.Server.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(application).State = EntityState.Modified;
+            application.date = application.date.ToUniversalTime();
+
+            //_context.Entry(application).State = EntityState.Modified;
+            // Check if the application exists
+            if (!_applicationService.ApplicationExists(id))
+            {
+                return NotFound();
+            }
 
             try
             {
-                await _context.SaveChangesAsync();
+                await Task.Run(() => _applicationService.UpdateApplication(application));
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ApplicationExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
 
             return NoContent();
@@ -95,21 +95,19 @@ namespace MyPresence.Server.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteApplication(int id)
         {
-            var application = await _context.applications.FindAsync(id);
-            if (application == null)
+
+            try
             {
-                return NotFound();
+                await Task.Run(() => _applicationService.DeleteApplication(id));
+                return NoContent(); // Deletion succeeded
             }
-
-            _context.applications.Remove(application);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            catch (Exception ex)
+            {
+                // Log the exception or handle it appropriately
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while deleting the application.");
+            }
         }
 
-        private bool ApplicationExists(int id)
-        {
-            return _context.applications.Any(e => e.id == id);
-        }
+
     }
 }
