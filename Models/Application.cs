@@ -11,6 +11,8 @@ namespace MyPresence.Server.Models
         public DateTime date { get; set; }
         public string url { get; set; }
 
+        public string update { get; set; }
+
 
         // Parameterless constructor
         public Application()
@@ -18,7 +20,7 @@ namespace MyPresence.Server.Models
         }
 
         // Constructor
-        public Application(int applicationId, int userId, string companyName, string status, DateTime date, string url)
+        public Application(int applicationId, int userId, string companyName, string status, DateTime date, string url, string update)
         {
             id = applicationId;
             user_id = userId;
@@ -26,16 +28,18 @@ namespace MyPresence.Server.Models
             this.status = status;
             this.date = date;
             this.url = url;
+            this.update = update;
         }
 
         // Constructor
-        public Application(int userId, string companyName, string status, DateTime date, string url)
+        public Application(int userId, string companyName, string status, DateTime date, string url, string update)
         {
             user_id = userId;
             company_name = companyName;
             this.status = status;
             this.date = date;
             this.url = url;
+            this.update = update;
         }
     }
 }
