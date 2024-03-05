@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyPresence.Server.Models;
 
@@ -23,26 +18,30 @@ namespace MyPresence.Server.Controllers
         }
 
         // GET: api/Apps
+        /**
+         * Parameter: user Id
+         * returns a list of applications
+         **/
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Application>>> GetApplications(int uid)
         {
-            Console.WriteLine("Request sent from client");
             var applications = await Task.Run(() => _applicationService.GetApplications(uid));
             return Ok(applications);
-            //return await _context.Applications.ToListAsync();
         }
 
         // GET: api/Apps/5
+        /**
+         * Parameter: app Id
+         * returns an application
+         **/
         [HttpGet("{id}")]
         public async Task<ActionResult<Application>> GetApplicationById(int id)
         {
             var application = await Task.Run(() => _applicationService.GetApplicationById(id));
-
             if (application == null)
             {
                 return NotFound();
             }
-
             return application;
         }
 
@@ -55,16 +54,11 @@ namespace MyPresence.Server.Controllers
             {
                 return BadRequest();
             }
-
             application.date = application.date.ToUniversalTime();
-
-            //_context.Entry(application).State = EntityState.Modified;
-            // Check if the application exists
             if (!_applicationService.ApplicationExists(id))
             {
                 return NotFound();
             }
-
             try
             {
                 await Task.Run(() => _applicationService.UpdateApplication(application));
@@ -73,7 +67,6 @@ namespace MyPresence.Server.Controllers
             {
                 return NotFound();
             }
-
             return NoContent();
         }
 
@@ -83,10 +76,7 @@ namespace MyPresence.Server.Controllers
         public async Task<ActionResult<Application>> PostApplication(Application application)
         {
             application.date = application.date.ToUniversalTime();
-
             _applicationService.AddApplication(application);
-
-            //return CreatedAtAction("GetApplication", new { id = application.ApplicationId }, application);
             return CreatedAtAction(nameof(GetApplicationById), new { id = application.id }, application);
 
         }
@@ -95,7 +85,6 @@ namespace MyPresence.Server.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteApplication(int id)
         {
-
             try
             {
                 await Task.Run(() => _applicationService.DeleteApplication(id));
@@ -107,7 +96,5 @@ namespace MyPresence.Server.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while deleting the application.");
             }
         }
-
-
     }
 }
