@@ -20,8 +20,6 @@ builder.Services.AddCors(options =>
     });
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-//builder.Services.AddDbContext<MyDbContext>(opt =>
-//    opt.UseInMemoryDatabase("ApplicationList"));
 
 builder.Services.AddScoped<ApplicationService>();
 
@@ -38,10 +36,6 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    //app.UseSwaggerUI(c =>
-    //{
-    //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyPresence API");
-    //});
 }
 
 // Apply CORS policy
